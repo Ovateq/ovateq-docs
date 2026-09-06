@@ -1,0 +1,150 @@
+/* Ovateq Docs — Document Converter overlay
+   Self-contained styles, namespaced under #ovq-conv-root so nothing here
+   can leak into or be affected by the main app's own styles. */
+
+#ovq-conv-fab {
+  position: fixed;
+  left: 16px;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px 0 12px;
+  border: none;
+  border-radius: 999px;
+  background: #102a43;
+  color: #fffdf8;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 14px rgba(16, 42, 67, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+#ovq-conv-fab:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(16, 42, 67, 0.4); }
+#ovq-conv-fab:active { transform: translateY(0); }
+#ovq-conv-fab svg { width: 18px; height: 18px; flex: none; }
+#ovq-conv-fab .ovq-fab-dot {
+  width: 7px; height: 7px; border-radius: 999px; background: #d7a650; flex: none;
+}
+
+#ovq-conv-root, #ovq-conv-root * { box-sizing: border-box; }
+
+#ovq-conv-root {
+  position: fixed;
+  inset: 0;
+  z-index: 99995;
+  display: none;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+#ovq-conv-root.ovq-open { display: block; }
+
+.ovq-conv-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 26, 40, 0.55);
+  backdrop-filter: blur(2px);
+}
+
+.ovq-conv-panel {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  max-height: 100dvh;
+  background: #fffdf8;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 0 1px rgba(16, 42, 67, 0.06);
+}
+@media (min-width: 640px) {
+  .ovq-conv-panel {
+    top: 50%;
+    transform: translateY(-50%);
+    height: auto;
+    max-height: min(680px, 92dvh);
+    border-radius: 16px;
+    margin-top: -50%;
+  }
+}
+
+.ovq-conv-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 14px;
+  background: #102a43;
+  color: #fffdf8;
+  border-radius: 16px 16px 0 0;
+  flex: none;
+}
+.ovq-conv-head h2 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+.ovq-conv-head p { margin: 2px 0 0; font-size: 12px; color: #cad5e2; }
+.ovq-conv-close {
+  border: none; background: rgba(255,255,255,0.1); color: #fffdf8;
+  width: 32px; height: 32px; border-radius: 999px; font-size: 16px; cursor: pointer; flex: none;
+  display: flex; align-items: center; justify-content: center;
+}
+.ovq-conv-close:hover { background: rgba(255,255,255,0.18); }
+
+.ovq-conv-body {
+  padding: 18px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+.ovq-conv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.ovq-conv-card {
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #dce7ee;
+  border-radius: 12px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.ovq-conv-card:hover { border-color: #d7a650; }
+.ovq-conv-card.ovq-active { border-color: #d7a650; background: #fbeedd; }
+.ovq-conv-card .ovq-icon { font-size: 20px; margin-bottom: 6px; }
+.ovq-conv-card .ovq-t { font-size: 13px; font-weight: 600; color: #102a43; margin-bottom: 3px; }
+.ovq-conv-card .ovq-d { font-size: 11px; color: #5b6b7a; line-height: 1.35; }
+
+.ovq-conv-details {
+  padding: 14px;
+  border: 1px solid #dce7ee;
+  border-radius: 12px;
+  background: #ffffff;
+}
+.ovq-conv-details h3 { margin: 0 0 10px; font-size: 14px; font-weight: 700; color: #102a43; }
+
+.ovq-file-list { margin: 0 0 10px; padding: 10px; background: #f0f5f9; border-radius: 8px; }
+.ovq-file-list p.ovq-label { margin: 0 0 6px; font-size: 11px; font-weight: 600; color: #5b6b7a; }
+.ovq-file-item { font-size: 12.5px; padding: 4px 0; color: #102a43; word-break: break-all; }
+
+.ovq-btn {
+  width: 100%; height: 42px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+  cursor: pointer; border: 1px solid transparent; margin-bottom: 10px;
+}
+.ovq-btn-outline { background: transparent; border-color: #b8c4cd; color: #102a43; }
+.ovq-btn-outline:hover { background: #f0f5f9; }
+.ovq-btn-primary { background: #d7a650; color: #102a43; }
+.ovq-btn-primary:hover { background: #c9963a; }
+.ovq-btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.ovq-progress-wrap { margin: 6px 0 10px; }
+.ovq-progress-bar { width: 100%; height: 6px; background: #dce7ee; border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.ovq-progress-fill { height: 100%; background: #d7a650; transition: width 0.25s ease; }
+.ovq-progress-text { margin: 0; font-size: 11.5px; color: #5b6b7a; text-align: center; }
+
+.ovq-status-ok { font-size: 12.5px; color: #0f5e37; background: #f2fbf6; border-radius: 8px; padding: 9px 10px; margin: 0 0 10px; }
+.ovq-status-err { font-size: 12.5px; color: #8f1728; background: #fbe5e1; border-radius: 8px; padding: 9px 10px; margin: 0 0 10px; }
+.ovq-hint { font-size: 11px; color: #8a97a3; margin: 10px 2px 0; line-height: 1.4; }
