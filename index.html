@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#102a43" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+    <link rel="preload" href="./fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <title>Ovateq Docs</title>
+    <script type="module" crossorigin src="./assets/index-FTHf4mDj.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-ameTJd4G.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <body>
+    <div id="root"></div>
+
+    <!--
+      Offline hardening (v25): if the app's bundle ever fails to boot — a
+      half-updated service worker, a deleted chunk from an older deploy, a
+      blocked script — the user used to get a white screen and no way forward.
+      This card appears instead, with a Reload that keeps their documents and a
+      Reset for when even that fails. Self-contained: no fonts, no build assets,
+      no network.
+    -->
+    <div id="boot-fallback" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:24px;background:#102a43;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#f8fafc">
+      <div style="max-width:26rem;text-align:center">
+        <div style="margin:0 auto 18px;height:44px;width:44px;border-radius:12px;background:#d7a650;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#102a43">!</div>
+        <h1 style="margin:0 0 10px;font-size:19px;font-weight:800;letter-spacing:-0.01em">Ovateq Docs couldn't start</h1>
+        <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#b6c6d6">
+          This is usually a half-updated copy of the app on this device. Reloading fixes it and
+          leaves your documents exactly as they are.
+        </p>
+        <button id="boot-reload" style="display:block;width:100%;height:48px;margin-bottom:10px;border:0;border-radius:14px;background:#d7a650;font-size:15px;font-weight:800;color:#102a43;cursor:pointer">
+          Reload the app
+        </button>
+        <button id="boot-reset" style="display:block;width:100%;height:44px;border:1px solid rgba(255,255,255,.22);border-radius:14px;background:transparent;font-size:13.5px;font-weight:700;color:#cbd8e4;cursor:pointer">
+          Reset this app on this device…
+        </button>
+        <p style="margin:14px 0 0;font-size:11.5px;line-height:1.6;color:#7f93a6">
+          Resetting clears the stored copy of the app AND the documents saved on this device.
+          Use it only if reloading keeps failing.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      /* Boot watchdog — plain script on purpose: if the module above never
+         runs, this still does. */
+      ;(function () {
+        var shown = false
+        function show() {
+          if (shown) return
+          shown = true
+          var el = document.getElementById('boot-fallback')
+          if (el) el.style.display = 'flex'
+        }
+        // A script or stylesheet failing to load. This is only a HINT: hosts
+        // inject their own scripts (Netlify adds /.netlify/scripts/hud, which
+        // simply 404s offline) and a third-party script failing says nothing
+        // about our app. So give the app a few seconds to prove it is alive and
+        // only then decide — found on the live site, where the card covered a
+        // perfectly healthy offline app because Netlify's script failed.
+        window.addEventListener(
+          'error',
+          function (e) {
+            var t = e.target
+            if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) {
+              setTimeout(function () {
+                if (!window.__ovateqBooted) show()
+              }, 3000)
+            }
+          },
+          true,
+        )
+        // Or the app simply never painting.
+        setTimeout(function () {
+          if (!window.__ovateqBooted) show()
+        }, 10000)
+
+        document.getElementById('boot-reload').onclick = function () {
+          location.reload()
+        }
+        document.getElementById('boot-reset').onclick = function () {
+          if (!confirm('Reset Ovateq Docs on this device? This clears the stored copy of the app and ALL documents saved on this device. Anything you have not backed up will be lost.')) return
+          ;(async function () {
+            try {
+              var keys = await caches.keys()
+              await Promise.all(keys.map(function (k) { return caches.delete(k) }))
+            } catch (e) {}
+            try {
+              var regs = await navigator.serviceWorker.getRegistrations()
+              await Promise.all(regs.map(function (r) { return r.unregister() }))
+            } catch (e) {}
+            try {
+              await new Promise(function (done) {
+                var req = indexedDB.deleteDatabase('ovateq-docs')
+                req.onsuccess = req.onerror = req.onblocked = function () { done() }
+              })
+            } catch (e) {}
+            location.href = location.pathname.replace(/\/[^/]*$/, '/') + '?reset=1'
+          })()
+        }
+      })()
+    </script>
+  </body>
+</html>
