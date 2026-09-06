@@ -11,11 +11,9 @@
     <link rel="preload" href="./fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
     <title>Ovateq Docs</title>
-    <script type="module" crossorigin src="./assets/index-DfAD_YjC.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BwDSOrmG.css">
-  <link rel="manifest" href="./manifest.webmanifest">
-    <!-- Document Converter (added on top of the built app; does not touch the app bundle) -->
-    <link rel="stylesheet" href="./converter/converter.css"></head>
+    <script type="module" crossorigin src="./assets/index-FTHf4mDj.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-ameTJd4G.css">
+  <link rel="manifest" href="./manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
 
@@ -102,15 +100,10 @@
                 req.onsuccess = req.onerror = req.onblocked = function () { done() }
               })
             } catch (e) {}
-            location.href = '/?reset=1'
+            location.href = location.pathname.replace(/\/[^/]*$/, '/') + '?reset=1'
           })()
         }
       })()
     </script>
-
-    <!-- Document Converter: mounts its own floating button + panel, entirely
-         outside #root, so it can never interfere with the main app's UI or
-         state. See ./converter/converter.js -->
-    <script defer src="./converter/converter.js"></script>
   </body>
 </html>
