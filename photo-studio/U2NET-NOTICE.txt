@@ -1,0 +1,9 @@
+U-2-Netp model notice
+
+Model: BritishWerewolf/U-2-Netp (ONNX)
+Source: https://huggingface.co/BritishWerewolf/U-2-Netp
+Upstream project: https://github.com/xuebinqin/U-2-Net
+Architecture/authors: Qin et al., U²-Net: Going Deeper with Nested U-Structure for Salient Object Detection.
+License: Apache License 2.0. See U2NET-LICENSE.txt.
+
+The ONNX model is bundled locally only for fully offline foreground segmentation. It is combined with the existing MODNet portrait matte to improve preservation of clothing and subject boundaries.
