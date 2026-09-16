@@ -3,3 +3,6 @@ Main JS: index-58b00b6fa5.js
 Main CSS: index-a8130bc38f.css
 Passport JS: app-04e6ec136e.js
 Content-derived filenames and matching service-worker revisions.
+
+FIXED17 Passport-only adaptive mask update
+Passport JS: app-2f6fda39fe.js
