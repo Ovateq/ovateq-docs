@@ -26,3 +26,7 @@ Every individual deployment file is below 10,000,000 bytes.
 PDF-WORD-LAYOUT-20260919
 PDF to Word now preserves original page tables, grids, and positioning. Separate editable-text mode retained.
 Main JS revision: 77ecf420b7eced2c64585ed08663a26a
+
+PDF-WORD-EDITABLE-TABLES-20260919
+Generic visible-grid detection, grid removal before OCR, coordinate-aware cell assignment, and editable OOXML table reconstruction.
+Main JS revision: be7a7d4795f6822da11fcb56a87be025
