@@ -30,3 +30,32 @@ Main JS revision: 77ecf420b7eced2c64585ed08663a26a
 PDF-WORD-EDITABLE-TABLES-20260919
 Generic visible-grid detection, grid removal before OCR, coordinate-aware cell assignment, and editable OOXML table reconstruction.
 Main JS revision: be7a7d4795f6822da11fcb56a87be025
+
+PDF-WORD-TNR14-HARDCOPY-20260919
+All editable PDF-to-Word paragraphs and reconstructed table cells use Times New Roman 14 pt.
+Main JS revision: b0ca7c2f5e97a1185ab53a4584d1ae49
+
+ALL-DOCUMENTS-TNR14-HARDCOPY-20260925
+Estimate, Quotation, Invoice, Receipt, CV, and Application print output forced to Times New Roman-compatible 14 pt. Bundled offline regular/bold/italic/bold-italic serif webfonts. Screen editor remains unchanged.
+CSS revision: 1fc2a9eaccbc866a6624b426e99324c1
+
+CV-MOBILE-EDITOR-20260925
+Restored the full CV editor form on mobile; desktop editor and mobile save/preview controls remain intact.
+Main JS revision: f5501198704586b76e7c535abce901d5
+
+CV-EDITOR-CACHE-BUST-20260925
+New main application URL: assets/index-cv-editor-20260925.js
+This forces installed/mobile browsers to fetch the corrected CV editor instead of reusing the old bundle URL.
+Index revision: 7de29ec360b562127b6e069da290494e
+Main JS revision: f5501198704586b76e7c535abce901d5
+
+AGREEMENTS-PHASE1-20260928
+Added Agreements inside the existing Ovateq Docs deployment without replacing the current application bundle or Passport assets.
+Agreement engine: agreements/agreements.js
+Agreement styles/14 pt print layout: agreements/agreements.css
+Templates: 14 configurable templates across Money, Property, Vehicles, Goods, Services, Employment / People, and Custom.
+Offline data: IndexedDB database ovateq-agreements, with JSON backup/restore.
+Phase 2 AI is intentionally NOT included.
+Agreement JS revision: fbc8c818f5e014f7626593d943b8fe3f
+Agreement CSS revision: 32e7e5cd431797aa34fb07db404ce64f
+Index revision: e411515f42d0b818061379d8e20f9f01
