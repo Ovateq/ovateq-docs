@@ -26,3 +26,12 @@
 .agr-paper .agr-signgrid{break-before:auto}.agr-paper .agr-sign{min-height:95px}
 @media(max-width:560px){.agr-paper .doc-facts>div,.agr-paper .doc-money{grid-template-columns:1fr}.agr-paper .doc-money>div{display:block}.agr-paper .doc-money strong{display:block;margin-top:2px}}
 @media print{.agr-paper h1,.agr-paper h2{break-after:avoid-page}.agr-paper .agr-signgrid{break-inside:avoid-page}.agr-paper .doc-facts>div,.agr-paper .doc-money>div,.agr-paper li{break-inside:avoid-page}}
+/* Phase 1E: the seated card is a direct in-app control, not a router link. */
+.agr-home-card{width:100%;text-align:left;appearance:none;-webkit-appearance:none}
+.agr-editor.preview-hidden{grid-template-columns:minmax(0,760px);justify-content:center}
+.agr-editor.preview-hidden .agr-previewwrap{display:none!important}
+/* Phase 1F: Agreements occupies the real AppShell main content area. */
+#ovq-agreements-root.agr-embedded{position:relative;inset:auto;z-index:auto;width:100%;min-height:calc(100dvh - 56px);overflow:visible;background:var(--agr-bg)}
+#ovq-agreements-root.agr-embedded .agr-app{min-height:calc(100dvh - 56px)}
+#ovq-agreements-root.agr-embedded .agr-top{top:56px}
+@media(min-width:1024px){body:not([data-ovq-agreements-preview]) #ovq-agreements-root.agr-embedded{left:auto}#ovq-agreements-root.agr-embedded .agr-top{top:0}}
