@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#102a43">
+  <title>Agreements · Ovateq Docs</title>
+  <link rel="stylesheet" href="./agreements.css?v=phase1b-20260928">
+</head>
+<body data-ovq-agreements-standalone="true" style="margin:0;background:#f4f7fa">
+  <noscript><p style="padding:24px;font-family:system-ui">JavaScript is required to use Ovateq Docs Agreements. <a href="../">Return to Ovateq Docs</a>.</p></noscript>
+  <div id="agreements-loading" style="padding:32px;text-align:center;font-family:system-ui;color:#60758a">Opening Agreements…</div>
+  <script src="./agreements.js?v=phase1b-20260928"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var loading = document.getElementById('agreements-loading')
+      if (loading) loading.remove()
+      if (window.OvateqAgreements) window.OvateqAgreements.open()
+      else document.body.innerHTML = '<main style="max-width:520px;margin:60px auto;padding:24px;font-family:system-ui"><h1>Agreements could not start</h1><p>Reload this page. If the problem continues, return to Ovateq Docs and deploy the complete Phase 1B package.</p><p><a href="../">Return to Ovateq Docs</a></p></main>'
+    })
+  </script>
+</body>
+</html>
