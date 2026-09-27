@@ -1,6 +1,6 @@
 /* Ovateq Docs Agreements — Phase 1. Offline-first, no AI, no network calls. */
 (()=>{'use strict';
-const VERSION='phase1i-20260928';
+const VERSION='phase1j-20260928';
 const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nl=v=>esc(v).replace(/\n/g,'<br>');
