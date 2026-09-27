@@ -59,3 +59,9 @@ Phase 2 AI is intentionally NOT included.
 Agreement JS revision: fbc8c818f5e014f7626593d943b8fe3f
 Agreement CSS revision: 32e7e5cd431797aa34fb07db404ce64f
 Index revision: e411515f42d0b818061379d8e20f9f01
+
+AGREEMENTS-PHASE1A-20260928
+Removed the duplicate floating Agreements launcher. The seated Agreements home card now has a direct click handler and renders immediately before storage refresh.
+Agreement JS revision: bf040f2ca6ceec147d7b2ab085946fc8
+Agreement CSS revision: 32e7e5cd431797aa34fb07db404ce64f
+Index revision: f3011a49f7a93d25c30b7c601f6839e2
