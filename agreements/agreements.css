@@ -13,3 +13,16 @@
 .agr-home-card{text-decoration:none!important;color:inherit!important;display:block}
 /* Keep the existing Ovateq desktop sidebar visible so Agreements remains visibly inside the app. */
 @media(min-width:1024px){body:not([data-ovq-agreements-preview]) #ovq-agreements-root{left:16rem}}
+/* Phase 1D professional agreement document structures. */
+.agr-paper .doc-facts{margin:8px 0 14px;border:1px solid #999;border-bottom:0}
+.agr-paper .doc-facts>div{display:grid;grid-template-columns:38% 1fr;border-bottom:1px solid #aaa;break-inside:avoid}
+.agr-paper .doc-facts dt{padding:6px 8px;background:#f1f1f1;font-weight:700}
+.agr-paper .doc-facts dd{margin:0;padding:6px 8px}
+.agr-paper .doc-money{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid #999;margin:10px 0 14px}
+.agr-paper .doc-money>div{padding:7px 9px;border-bottom:1px solid #bbb;display:flex;justify-content:space-between;gap:12px;break-inside:avoid}
+.agr-paper .doc-money span{color:#444}.agr-paper .doc-status-note{font-size:8.5pt;color:#555;font-weight:400}
+.agr-paper .doc-schedule{margin:10px 0;padding:9px 12px;background:#f5f5f5;border-left:3px solid #555;break-inside:avoid}
+.agr-paper h2{break-after:avoid-page}.agr-paper h2+*,.agr-paper .agr-sign,.agr-paper .agr-partybox>div{break-inside:avoid-page}
+.agr-paper .agr-signgrid{break-before:auto}.agr-paper .agr-sign{min-height:95px}
+@media(max-width:560px){.agr-paper .doc-facts>div,.agr-paper .doc-money{grid-template-columns:1fr}.agr-paper .doc-money>div{display:block}.agr-paper .doc-money strong{display:block;margin-top:2px}}
+@media print{.agr-paper h1,.agr-paper h2{break-after:avoid-page}.agr-paper .agr-signgrid{break-inside:avoid-page}.agr-paper .doc-facts>div,.agr-paper .doc-money>div,.agr-paper li{break-inside:avoid-page}}
