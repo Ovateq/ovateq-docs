@@ -1,6 +1,6 @@
 /* Ovateq Docs Agreements — Phase 2 architecture boundary. Phase 1 remains the document engine. */
 (()=>{'use strict';
-const VERSION='phase2e-rental-payment-cleanup-20261006';
+const VERSION='phase2f-rental-payment-cache-repair-20261006';
 const $=(s,e=document)=>e.querySelector(s), $$=(s,e=document)=>[...e.querySelectorAll(s)];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nl=v=>esc(v).replace(/\n/g,'<br>');

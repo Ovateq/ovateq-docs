@@ -10,14 +10,32 @@
     <link rel="icon" type="image/png" href="./icons/icon-192.png" />
     <link rel="preload" href="./fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-    <link rel="stylesheet" href="./agreements/agreements.css?v=phase2e-rental-payment-cleanup-20261006" />
+    <link rel="stylesheet" href="./agreements/agreements.css?v=phase2f-rental-payment-cache-repair-20261006" />
     <title>Ovateq Docs</title>
-    <script type="module" crossorigin src="./assets/index-cv-editor-20260925.js?v=phase2e-rental-payment-cleanup-20261006"></script>
+    <script>
+      /* Phase 2F cache repair: clears old app shell/service-worker caches once, without deleting saved documents. */
+      ;(function () {
+        var version = 'phase2f-rental-payment-cache-repair-20261006'
+        try {
+          if (localStorage.getItem('ovq-cache-repair') === version) return
+          localStorage.setItem('ovq-cache-repair', version)
+          var jobs = []
+          if ('caches' in window) jobs.push(caches.keys().then(function (keys) { return Promise.all(keys.map(function (k) { return caches.delete(k) })) }))
+          if ('serviceWorker' in navigator) jobs.push(navigator.serviceWorker.getRegistrations().then(function (regs) { return Promise.all(regs.map(function (r) { return r.unregister() })) }))
+          Promise.all(jobs).then(function () {
+            if (location.search.indexOf('cacheRepaired=phase2f') === -1) {
+              location.replace(location.pathname + '?cacheRepaired=phase2f' + location.hash)
+            }
+          }).catch(function () {})
+        } catch (e) {}
+      })()
+    </script>
+    <script type="module" crossorigin src="./assets/index-cv-editor-20260925.js?v=phase2f-rental-payment-cache-repair-20261006"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-a8130bc38f.css">
   <link rel="manifest" href="./manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
-    <script defer src="./agreements/agreements.js?v=phase2e-rental-payment-cleanup-20261006"></script>
+    <script defer src="./agreements/agreements.js?v=phase2f-rental-payment-cache-repair-20261006"></script>
 
     <!--
       Offline hardening (v25): if the app's bundle ever fails to boot — a
