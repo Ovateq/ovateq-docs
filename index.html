@@ -107,13 +107,22 @@
       /* Reload once when a newly deployed service worker takes control.
          Existing IndexedDB documents are untouched. */
       ;(function () {
-        if (!('serviceWorker' in navigator) || !navigator.serviceWorker.controller) return
-        var refreshing = false
-        navigator.serviceWorker.addEventListener('controllerchange', function () {
-          if (refreshing) return
-          refreshing = true
-          location.reload()
-        })
+        if (!('serviceWorker' in navigator)) return
+        var shown = false
+        function show() {
+          if (shown || !document.body) return
+          shown = true
+          var d = document.createElement('div')
+          d.style.cssText = 'position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:99999;background:#0c625b;color:#fff;border-radius:14px;padding:12px 16px;font:600 13px/1.4 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.28);display:flex;gap:10px;align-items:center;max-width:92vw'
+          d.innerHTML = '<span>A new version of Ovateq Docs is ready.</span>' +
+            '<button data-ovq-update="reload" style="background:#f4b942;color:#201a05;border:0;border-radius:10px;padding:8px 12px;font:700 12px system-ui,sans-serif;cursor:pointer">Reload now</button>' +
+            '<button data-ovq-update="later" style="background:transparent;color:#cfe8e5;border:0;cursor:pointer;font:600 12px system-ui,sans-serif" title="Not now">\u2715</button>'
+          document.body.appendChild(d)
+          d.querySelector('[data-ovq-update="reload"]').addEventListener('click', function () { location.reload() })
+          d.querySelector('[data-ovq-update="later"]').addEventListener('click', function () { d.remove(); shown = false })
+        }
+        window.__ovqUpdateToast = show
+        navigator.serviceWorker.addEventListener('controllerchange', show)
       })()
     </script>
 
