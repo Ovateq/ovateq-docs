@@ -4,18 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#102a43" />
+    <meta name="description" content="Ovateq Docs — offline-first business documents: invoices, quotations, estimates, receipts, CVs, agreements and passport photos. Works without internet; your files never leave your device." />
+    <meta property="og:title" content="Ovateq Docs" />
+    <meta property="og:description" content="Offline-first estimates, quotations, invoices, receipts, CVs and agreements — your documents stay on your device." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./icons/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="icon" type="image/png" href="./icons/icon-192.png" />
     <link rel="preload" href="./fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-    <link rel="stylesheet" href="./agreements/agreements.css?v=phase2i-doc-cleanup-20261007" />
+    <link rel="stylesheet" href="./agreements/agreements.css?v=phase2k-system-batch-20261007" />
     <title>Ovateq Docs</title>
     <script>
       /* Phase 2F cache repair: clears old app shell/service-worker caches once, without deleting saved documents. */
       ;(function () {
-        var version = 'phase2i-doc-cleanup-20261007'
+        var version = 'phase2k-system-batch-20261007'
         try {
           if (localStorage.getItem('ovq-cache-repair') === version) return
           localStorage.setItem('ovq-cache-repair', version)
@@ -23,19 +29,50 @@
           if ('caches' in window) jobs.push(caches.keys().then(function (keys) { return Promise.all(keys.map(function (k) { return caches.delete(k) })) }))
           if ('serviceWorker' in navigator) jobs.push(navigator.serviceWorker.getRegistrations().then(function (regs) { return Promise.all(regs.map(function (r) { return r.unregister() })) }))
           Promise.all(jobs).then(function () {
-            if (location.search.indexOf('cacheRepaired=phase2i') === -1) {
-              location.replace(location.pathname + '?cacheRepaired=phase2i' + location.hash)
+            if (location.search.indexOf('cacheRepaired=phase2k') === -1) {
+              location.replace(location.pathname + '?cacheRepaired=phase2k' + location.hash)
             }
           }).catch(function () {})
         } catch (e) {}
       })()
     </script>
-    <script type="module" crossorigin src="./assets/index-cv-editor-20260925.js?v=phase2i-doc-cleanup-20261007"></script>
+    <script>
+      /* Device-id guard: the Pro device code derives from a random id kept in
+         localStorage. If something wipes localStorage only (partial cleanups,
+         some browser "clear" flows), restore the id from a small IndexedDB
+         backup BEFORE the app boots, so a registered device keeps its code. */
+      window.__ovqDeviceGuard = (function () {
+        var LS = 'ovateq:device-id', DB = 'ovq-device-guard', STORE = 'kv'
+        function openDb() { return new Promise(function (res, rej) { var q = indexedDB.open(DB, 1); q.onupgradeneeded = function () { q.result.createObjectStore(STORE) }; q.onsuccess = function () { res(q.result) }; q.onerror = function () { rej(q.error) } }) }
+        function getLS() { try { return localStorage.getItem(LS) } catch (e) { return null } }
+        function setLS(v) { try { localStorage.setItem(LS, v) } catch (e) {} }
+        function restore() {
+          if (getLS()) return Promise.resolve()
+          return openDb().then(function (d) { return new Promise(function (res) { var tx = d.transaction(STORE).get('device-id'); tx.onsuccess = function () { res(tx.result) }; tx.onerror = function () { res(null) } }) })
+            .then(function (v) { if (v && String(v).length >= 8) setLS(String(v)) })
+            .catch(function () {})
+        }
+        function backup() {
+          var v = getLS(); if (!v) return Promise.resolve()
+          return openDb().then(function (d) { return new Promise(function (res) { var tx = d.transaction(STORE, 'readwrite'); tx.put(v, 'device-id'); tx.oncomplete = tx.onerror = tx.onabort = res }) })
+            .catch(function () {})
+        }
+        return { restore: restore, backup: backup }
+      })()
+    </script>
+    <script>
+      ;(function () {
+        function boot() { var s = document.createElement('script'); s.type = 'module'; s.crossOrigin = 'true'; s.src = './assets/index-cv-editor-20260925.js?v=phase2k-system-batch-20261007'; document.head.appendChild(s) }
+        window.__ovqDeviceGuard.restore().then(boot, boot)
+        setInterval(function () { window.__ovqDeviceGuard.backup() }, 30000)
+        window.addEventListener('pagehide', function () { window.__ovqDeviceGuard.backup() })
+      })()
+    </script>
     <link rel="stylesheet" crossorigin href="./assets/index-a8130bc38f.css">
   <link rel="manifest" href="./manifest.webmanifest"></head>
   <body>
     <div id="root"></div>
-    <script defer src="./agreements/agreements.js?v=phase2i-doc-cleanup-20261007"></script>
+    <script defer src="./agreements/agreements.js?v=phase2k-system-batch-20261007"></script>
 
     <!--
       Offline hardening (v25): if the app's bundle ever fails to boot — a
@@ -139,6 +176,71 @@
             location.href = location.pathname.replace(/\/[^/]*$/, '/') + '?reset=1'
           })()
         }
+      })()
+    </script>
+
+    <style>
+      #ovq-net{position:fixed;left:12px;bottom:12px;z-index:2147483646;display:none;align-items:center;gap:7px;background:#7a2e1d;color:#ffe9e2;border:1px solid #a0522d;border-radius:999px;padding:7px 12px;font:700 12px/1 system-ui,sans-serif;box-shadow:0 6px 18px #0006}
+      #ovq-net.on{display:flex}
+      #ovq-net .dot{width:8px;height:8px;border-radius:50%;background:#ff8a65}
+    </style>
+    <div id="ovq-net" role="status"><span class="dot"></span><span id="ovq-net-text">Offline — your work stays on this device</span></div>
+    <script>
+      /* Connectivity badge: offline-first app, now with a visible state. */
+      ;(function () {
+        var el = document.getElementById('ovq-net'), tx = document.getElementById('ovq-net-text'), t
+        function paint() { var off = !navigator.onLine; el.classList.toggle('on', off); if (off) tx.textContent = 'Offline — your work stays on this device' }
+        function flash() { tx.textContent = 'Back online'; el.classList.add('on'); clearTimeout(t); t = setTimeout(function () { el.classList.remove('on') }, 2200) }
+        window.addEventListener('offline', paint); window.addEventListener('online', flash); paint()
+      })()
+    </script>
+    <script>
+      /* Unsaved-work guard for the main editor (Agreements has its own exact
+         guard). Arms on typing inside the app, disarms on save-like actions
+         and on in-app navigation, so closing the tab with unsaved edits warns. */
+      ;(function () {
+        var armed = false
+        function inApp(e) { return e.target && e.target.closest && e.target.closest('#root') }
+        document.addEventListener('input', function (e) { if (inApp(e)) armed = true }, true)
+        document.addEventListener('change', function (e) { if (inApp(e)) armed = true }, true)
+        document.addEventListener('click', function (e) { var b = e.target.closest && e.target.closest('button,a'); if (b && /save|download|export|back|close|done|home|delete|discard/i.test(b.textContent || '')) armed = false }, true)
+        window.addEventListener('hashchange', function () { armed = false })
+        window.addEventListener('beforeunload', function (e) { if (armed && window.__ovateqBooted) { e.preventDefault(); e.returnValue = '' } })
+      })()
+    </script>
+    <script>
+      /* Device-code copy chip on the Pro screen (same derivation as the app:
+         base32 of SHA-256("ovateq-docs/device/" + device id)). */
+      ;(function () {
+        var B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ', chip = null
+        function code() {
+          var id = null; try { id = localStorage.getItem('ovateq:device-id') } catch (e) {}
+          if (!id) return Promise.resolve(null)
+          var data = new TextEncoder().encode('ovateq-docs/device/' + id)
+          return crypto.subtle.digest('SHA-256', data).then(function (h) {
+            var n = new Uint8Array(h), s = '', a = 0, i = 0
+            for (var c of n) { a = a << 8 | c; i += 8; while (i >= 5 && s.length < 8) { i -= 5; s += B32[(a >>> i) & 31] } }
+            return s
+          }).catch(function () { return null })
+        }
+        function kill() { if (chip) { chip.remove(); chip = null } }
+        function paint() {
+          if (!/#\/settings\/pro/.test(location.hash)) return kill()
+          code().then(function (c) {
+            if (!c) return kill(); if (chip) return
+            chip = document.createElement('button'); chip.type = 'button'
+            chip.style.cssText = 'position:fixed;right:12px;bottom:56px;z-index:2147483646;border:1px solid #d5b36f;background:#fffdf7;color:#93651a;border-radius:999px;padding:8px 12px;font:700 11.5px/1 system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 18px #0003'
+            var label = 'Device code ' + c.slice(0, 4) + '-' + c.slice(4) + ' · tap to copy'
+            chip.textContent = label
+            chip.onclick = function () {
+              if (navigator.clipboard) navigator.clipboard.writeText(c).then(function () {}, function () { prompt('Copy device code:', c) })
+              else prompt('Copy device code:', c)
+              chip.textContent = 'Copied ✓'; setTimeout(function () { chip.textContent = label }, 1600)
+            }
+            document.body.appendChild(chip)
+          })
+        }
+        window.addEventListener('hashchange', paint); setTimeout(paint, 1500)
       })()
     </script>
   </body>
