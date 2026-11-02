@@ -5,7 +5,108 @@
 <main id="app" hidden><header class="top"><button id="back">← Back</button><b>Passport Photo Studio</b><span class="pro">PRO · OFFLINE</span></header><div class="wrap">
 <div class="card" style="margin-bottom:16px"><div class="row" id="personChips" style="margin-bottom:10px"></div><label class="upload">Choose portrait photo<input id="file" type="file" accept="image/jpeg,image/png,image/webp"></label><div class="row" style="margin-top:10px"><button id="remove" class="btn gold" disabled>✦ Remove background with AI</button><button id="useOriginal" class="btn soft">Use original</button></div><div class="progress"><i id="progress"></i></div><p id="status" class="status">Photos stay on this device. Nothing is uploaded.</p></div>
 <div id="workspace" class="grid" hidden>
-<section class="card"><p class="sectionTitle">1 · AI cut-out and Super Retouch</p><p class="hint">The enhanced two-model offline AI protects clothing—including white clothes—and fine portrait edges. Nothing is uploaded.</p><label>Retouch instructions (optional)<textarea id="retouchPrompt" rows="3" placeholder="Example: Restore this faded old photo naturally, brighten the face, reduce noise, smooth skin gently and sharpen clothing details.">Brighten evenly and restore naturally, preserve the exact same face, keep real skin texture and pores, reduce noise, clean edges without halo, and bring out crisp professional detail.</textarea></label><div class="row"><label style="flex:1;min-width:180px">Retouch strength <input id="retouchStrength" type="range" min="20" max="100" value="78"></label><button id="refine" class="btn primary" disabled>✦ Super Retouch</button><button id="undoRefine" class="btn soft" disabled>Undo retouch</button></div><p class="hint">Understands practical offline instructions for brightness, warmth, faded-photo recovery, noise reduction, skin smoothing and sharpness. It does not invent facial features or upload the photo.</p><div id="editWrap" class="canvasWrap" style="margin-top:10px"><canvas id="editCanvas"></canvas></div></section>
+<section class="card"><p class="sectionTitle">1 · AI cut-out and Super Retouch</p><p class="hint">The enhanced two-model offline AI protects clothing—including white clothes—and fine portrait edges. Nothing is uploaded.</p><label>Retouch instructions (optional)<textarea id="retouchPrompt" rows="3" placeholder="Example: Restore this faded old photo naturally, brighten the face, reduce noise, smooth skin gently and sharpen clothing details.">MASTER PROMPT: PROFESSIONAL PHOTO RETOUCHING, MAXIMUM QUALITY & PURE WHITE BACKGROUND
+
+OBJECTIVE
+
+Transform every uploaded photograph into a high-quality, professionally retouched portrait with exceptional clarity, sharpness, natural skin tones and a perfectly clean PURE WHITE BACKGROUND.
+
+THE THREE ABSOLUTE PRIORITIES:
+
+1. Preserve the exact facial identities of everyone in the original photograph.
+2. Maintain their original natural skin colours and complexions.
+3. ALWAYS remove the original background and replace it with a pure white background.
+
+1. FACIAL IDENTITY PRESERVATION — HIGHEST PRIORITY
+
+- Preserve every person's exact original facial identity.
+- Do not reconstruct, regenerate, replace, reshape or beautify faces.
+- Preserve original facial structure, eyes, nose, lips, teeth, smile, cheeks, jawline and ears.
+- Maintain original expressions, age and natural facial proportions.
+- Do not alter hairstyles, hairlines or facial hair.
+- No artificial facial features or excessive beauty filters.
+
+2. NATURAL SKIN TONE AND COMPLEXION
+
+- Maintain each person's original natural skin colour.
+- NEVER make dark-skinned people fairer, lighter or artificially brighter.
+- Do not bleach, whiten or change complexion.
+- Preserve natural skin texture, pores and details.
+- Apply only subtle professional skin retouching.
+- Correct lighting without changing natural skin colour.
+
+3. MAXIMUM IMAGE QUALITY ENHANCEMENT
+
+- Improve resolution and image clarity.
+- Apply professional sharpening and detail recovery.
+- Reduce noise, grain, blur and compression artefacts.
+- Correct exposure, white balance and contrast.
+- Recover shadow and highlight details.
+- Enhance hair, clothing and accessories.
+- Produce realistic, high-definition photographic quality.
+
+4. COMPULSORY PURE WHITE BACKGROUND REPLACEMENT
+
+THIS IS MANDATORY FOR EVERY PHOTOGRAPH.
+
+- Completely remove the original background.
+- Replace it with a perfectly uniform PURE WHITE background (RGB 255, 255, 255 / #FFFFFF).
+- No grey, cream, blue or off-white backgrounds.
+- No gradients, patterns, textures, decorations or scenery.
+- Ensure clean, precise edges around hair, ears, shoulders and clothing.
+- Preserve fine hair strands without cutting them off.
+- Avoid white halos, jagged edges and artificial cutout effects.
+- Ensure the subject blends naturally into the white background.
+- Maintain realistic subject lighting.
+- Use subtle, natural shadows only where appropriate; never introduce grey background shading.
+
+5. SUBJECT AND CLOTHING PRESERVATION
+
+- Preserve original clothing, colours, patterns and textures.
+- Retain glasses, earrings, jewellery and accessories.
+- Preserve body proportions, posture and positioning.
+- Do not add or remove clothing or accessories unless requested.
+- Do not distort body parts or crop important details.
+
+6. LIGHTING AND COLOUR CORRECTION
+
+- Apply balanced professional lighting.
+- Correct overexposure and underexposure.
+- Maintain accurate natural skin tones.
+- Improve highlights and shadows.
+- Avoid excessive saturation, artificial HDR and plastic-looking skin.
+
+7. STRICTLY PROHIBITED
+
+- Changing facial identity.
+- Generating or replacing faces.
+- Making anyone fairer or lighter.
+- Changing facial expressions.
+- Altering body proportions.
+- Excessive skin smoothing.
+- Introducing artificial facial details.
+- Retaining any part of the original background.
+- Using any background colour other than pure white.
+
+8. FINAL OUTPUT
+
+Deliver a beautifully enhanced, professionally retouched, high-resolution photograph featuring:
+
+- The exact original facial identities.
+- Original natural skin complexion.
+- Exceptional image sharpness and clarity.
+- Natural skin texture.
+- Professional lighting and colour accuracy.
+- Clean, precise subject edges.
+- A perfectly pure white (#FFFFFF) background.
+
+FINAL NON-NEGOTIABLE INSTRUCTION:
+
+ALWAYS REMOVE THE ORIGINAL BACKGROUND AND USE PURE WHITE.
+
+NEVER CHANGE THE PERSON'S FACIAL IDENTITY OR NATURAL SKIN COLOUR.
+
+Enhance the photograph, not the person. The result must look professionally photographed and professionally retouched, with the person's original identity fully preserved.</textarea></label><div class="row"><label style="flex:1;min-width:180px">Retouch strength <input id="retouchStrength" type="range" min="20" max="100" value="78"></label><button id="refine" class="btn primary" disabled>✦ Super Retouch</button><button id="undoRefine" class="btn soft" disabled>Undo retouch</button></div><p class="hint">Understands practical offline instructions for brightness, warmth, faded-photo recovery, noise reduction, skin smoothing and sharpness. It does not invent facial features or upload the photo.</p><div id="editWrap" class="canvasWrap" style="margin-top:10px"><canvas id="editCanvas"></canvas></div></section>
 <section class="card controls"><p class="sectionTitle">2 · Size and position</p><label>Photo standard<select id="preset"><option value="us">US passport · 2 × 2 in</option><option value="gh">Ghana passport · 35 × 45 mm</option><option value="ovateq">Ovateq Passport · 413 × 531 px</option><option value="intl">International / UK · 35 × 45 mm</option><option value="visa50">Visa square · 50 × 50 mm</option><option value="custom">Custom size</option></select></label><div id="custom" class="custom" hidden><label>Width<input id="customW" type="number" min="1" value="2" step="0.1"></label><label>Height<input id="customH" type="number" min="1" value="2" step="0.1"></label><label>Unit<select id="unit"><option value="in">in</option><option value="mm">mm</option><option value="px">px</option></select></label><label>DPI<input id="dpi" type="number" value="300" min="72" max="600"></label></div><div id="sizeReadout" class="size"></div><label>Background colour<input id="bg" type="color" value="#ffffff" style="height:42px;padding:4px"></label><label>Zoom<input id="zoom" type="range" min="60" max="220" value="100"></label><label>Move left / right<input id="offsetX" type="range" min="-60" max="60" value="0"></label><label>Move up / down<input id="offsetY" type="range" min="-60" max="60" value="0"></label><div class="previewBox"><canvas id="previewCanvas"></canvas></div><div class="divider"></div><p class="sectionTitle">3 · Export</p><div class="row" style="gap:8px"><button id="downloadSingle" class="btn primary" style="flex:1">Download single passport photo</button><button id="downloadSinglePdf" class="btn primary" style="flex:1">Download single photo PDF</button></div><p class="hint" style="margin:6px 0 0">Downloads the <b>active person</b> (the highlighted Person tab at the top). The copies box below applies to that person. The PDF button saves the same single photo as a PDF page at its exact physical size - print at 100%.</p><div class="row"><label style="flex:1">Copies on A4<input id="copies" type="number" min="1" max="30" value="8"></label><label style="flex:1">Positioning mode<select id="sheetMode"><option value="group">Move whole group</option><option value="set">Move whole set</option><option value="individual">Move each photo</option></select></label></div>
 <div class="row" id="layoutChips" style="gap:6px;flex-wrap:wrap;margin-top:8px"></div><div class="row"><label style="flex:1">Cutting stroke (mm)<input id="strokeWidth" type="number" min="0" max="3" value="0.2" step="0.05"></label><label style="flex:1">Stroke colour<input id="strokeColor" type="color" value="#000000" style="height:42px;padding:4px"></label><label style="flex:0 0 auto;display:flex;align-items:center;gap:8px;font-size:12px"><input id="cropMarks" type="checkbox" style="width:18px;height:18px"> Corner crop marks</label></div><p class="hint" style="margin:0">The cutting guide is drawn outside every exact-size photo on the A4 preview and print sheet. Set thickness to 0 for no stroke.</p><div class="sheetPreviewWrap"><canvas id="sheetPreview" aria-label="A4 print arrangement preview"></canvas></div><div class="sheetNudge"><button type="button" data-move="up" aria-label="Move up">↑</button><button type="button" data-move="left" aria-label="Move left">←</button><button type="button" id="sheetReset">Reset</button><button type="button" data-move="right" aria-label="Move right">→</button><button type="button" data-move="down" aria-label="Move down">↓</button></div><p class="hint">Drag the arrangement on the A4 preview. In <b>Move whole set</b>, tap any photo of a set once, then drag or use the arrows to move that whole set (e.g. its 5 copies) together. In <b>Move each photo</b>, tap a photo first and then drag it. Hold an arrow button for precise continuous movement.</p><button id="downloadSheet" class="btn gold">Download A4 print sheet exactly as previewed</button><p class="hint">Print sheets are 300 DPI. In the print dialog choose <b>Actual size / 100%</b>. Always confirm current government photo rules before submitting.</p></section>
 </div></div></main><script>
@@ -27,4 +128,4 @@
   window.__ovqUpdateToast = show
   navigator.serviceWorker.addEventListener('controllerchange', show)
 })()
-</script><script type="module" src="./app-1713992d.js"></script></body></html>
+</script><script type="module" src="./app-4c390bcf.js"></script></body></html>
